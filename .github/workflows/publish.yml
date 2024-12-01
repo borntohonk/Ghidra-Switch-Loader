@@ -37,20 +37,10 @@ jobs:
       - name: Build extension
         run: ./gradlew
 
-      - uses: svenstaro/upload-release-action@v2
-        if: github.event_name == 'push' && contains(github.ref, 'refs/tags/v')
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/SwitchLoader-*.zip
-          tag: ${{ github.ref }}
+          include-hidden-files: true
           overwrite: true
-          file_glob: true
-
-      - uses: svenstaro/upload-release-action@v2
-        if: github.event_name == 'workflow_dispatch'
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/SwitchLoader-*.zip
-          tag: ${{ inputs.tag }}
-          overwrite: true
-          file_glob: true
+          name: SwitchLoader
+          path: dist/SwitchLoader-*.zip
