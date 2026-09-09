@@ -123,14 +123,7 @@ public abstract class NXOAdapter
         long baseAddress = program.getImageBase().getOffset();
         long memoryProviderLength = 0x0;
         
-        try 
-        {
-            memoryProviderLength = this.getMemoryProvider().length();
-        } 
-        catch (IOException e) 
-        {
-            Msg.error(this, "Failed to get memory provider length", e);
-        }
+        memoryProviderLength = this.getMemoryProvider().length();
 
         this.elfProvider = new ElfCompatibilityProvider(program, new LegacyByteProviderWrapper(this.getMemoryProvider(), -baseAddress, memoryProviderLength), this.isAarch32());
         
